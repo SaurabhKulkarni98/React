@@ -4,7 +4,7 @@ import cors from 'cors'
 import userRoutes from "./routes/users.js";
 import dotenv from "dotenv";
 import questionRoutes from "./routes/Questions.js";
-
+import answerRoutes from "./routes/Answers.js"
 dotenv.config();
 
 const app = express();
@@ -17,6 +17,7 @@ app.get('/',(req,res)=> {
 })
 app.use("/user", userRoutes);
 app.use("/questions", questionRoutes);
+app.use("/answer", answerRoutes);
 const PORT = process.env.PORT || 4000;
 
 const CONNECTION_URL = "mongodb+srv://saurabh:saurabh@cluster0.mywd3ej.mongodb.net/?retryWrites=true&w=majority"

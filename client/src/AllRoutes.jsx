@@ -1,10 +1,10 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home/Home'
-import Auth from './pages/Auth/Auth'
-import Questions from './pages/Questions/Questions'
-import AskQuestion from './pages/AskQuestion/AskQuestion'
-import DisplayQuestion from './pages/Questions/DisplayQuestion'
+import Home from "./Pages/Home/Home";
+import Auth from "./Pages/Auth/Auth";
+import Questions from "./Pages/Questions/Questions";
+import AskQuestion from "./Pages/AskQuestion/AskQuestion";
+import DisplayQuestion from "./Pages/Questions/DisplayQuestion";
 const AllRoutes = () => {
   return (
     <Routes>

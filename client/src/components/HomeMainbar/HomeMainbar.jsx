@@ -12,68 +12,68 @@ const HomeMainbar = () => {
   const navigate = useNavigate()
   
   
-  const questionsLis = useSelector((state) => state.questionsReducer);
-   console.log(questionsLis)
-  var questionsList = [{
-    _id: 1,
-    upVotes: 3,
-     downVotes: 2,
-     noofAnswers: 2,
-     questionTitle: "what is a function?",
-     questionBody: "It is meant to be",
-     questionTags: ["java","mongodb","express.js","node.js","reactjs",],
-     userPosted:"Saurabh",
-     userId: 1,
-     askedOn:"jan1",
-     answer: [
-       {
-        answerBody: "Answer",
-        userAnswered: "Saurabh",
-        answeredon:"jan1",
-        userId: 2,
-       }
-   ]
-   },
-   {
-     _id: 2,
-     upVotes: 3,
-     downVotes: 2,
-     noofAnswers: 0,
-     questionTitle: "what is a function?",
-     questionBody: "It is meant to be",
-     questionTags:["javascript","R","python",],
-     userPosted:"Saurabh",
-    userId: 1,
-    askedOn:"jan1",
-     answer: [
-    {
-        answerBody: "Answer",
-        userAnswered: "Saurabh",
-        answeredon:"jan1",
-       userId: 2,
-      }
-    ]
-   },
-   {
-     _id: 3,
-     upVotes: 3,
-     downVotes: 2,
-     noofAnswers: 0,
-     questionTitle: "what is a function?",
-     questionBody: "It is meant to be",
-    questionTags: ["javascript","R","python",],
-     userPosted:"Saurabh",
-     userId: 1,
-     askedOn:"jan1",
-     answer: [
-       {
-        answerBody: "Answer",
-        userAnswered: "Saurabh",
-        answeredon:"jan1",
-        userId: 2,
-       }
-     ]
-   }]
+  const questionsList = useSelector((state) => state.questionsReducer);
+   //console.log(questionsList)
+  // var questionsList = [{
+  //   _id: 1,
+  //   upVotes: 3,
+  //    downVotes: 2,
+  //    noofAnswers: 2,
+  //    questionTitle: "what is a function?",
+  //    questionBody: "It is meant to be",
+  //    questionTags: ["java","mongodb","express.js","node.js","reactjs",],
+  //    userPosted:"Saurabh",
+  //    userId: 1,
+  //    askedOn:"jan1",
+  //    answer: [
+  //      {
+  //       answerBody: "Answer",
+  //       userAnswered: "Saurabh",
+  //       answeredon:"jan1",
+  //       userId: 2,
+  //      }
+  //  ]
+  //  },
+  //  {
+  //    _id: 2,
+  //    upVotes: 3,
+  //    downVotes: 2,
+  //    noofAnswers: 0,
+  //    questionTitle: "what is a function?",
+  //    questionBody: "It is meant to be",
+  //    questionTags:["javascript","R","python",],
+  //    userPosted:"Saurabh",
+  //   userId: 1,
+  //   askedOn:"jan1",
+  //    answer: [
+  //   {
+  //       answerBody: "Answer",
+  //       userAnswered: "Saurabh",
+  //       answeredon:"jan1",
+  //      userId: 2,
+  //     }
+  //   ]
+  //  },
+  //  {
+  //    _id: 3,
+  //    upVotes: 3,
+  //    downVotes: 2,
+  //    noofAnswers: 0,
+  //    questionTitle: "what is a function?",
+  //    questionBody: "It is meant to be",
+  //   questionTags: ["javascript","R","python",],
+  //    userPosted:"Saurabh",
+  //    userId: 1,
+  //    askedOn:"jan1",
+  //    answer: [
+  //      {
+  //       answerBody: "Answer",
+  //       userAnswered: "Saurabh",
+  //       answeredon:"jan1",
+  //       userId: 2,
+  //      }
+  //    ]
+  //  }]
   
   const checkAuth = () => {
     if(user == null){
@@ -96,13 +96,13 @@ const HomeMainbar = () => {
 
       </div>
       <div>
-        {questionsList === null ? (
+        {questionsList.data === null ? (
           <h1>Loading...</h1>
         ) : (
           <>
-            <p>{questionsList.length} questions</p>
+            <p>{questionsList.data.length} questions</p>
             
-            <QuestionList questionsList={questionsList} />
+            <QuestionList questionsList={questionsList.data} />
           </>
         )}
       </div>
