@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link, useNavigate, useLocation  } from 'react-router-dom'
+import moment from "moment";
+import copy from "copy-to-clipboard";
+
 import upvote from '../../assets/sort-up.svg'
 import downvote from '../../assets/sort-down.svg'
 import Avatar from '../../components/Avatar/Avatar'
 import DisplayAnswer from "./DisplayAnswer";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  postAnswer
+  postAnswer,
+  deleteQuestion,
+  voteQuestion,
 } from "../../actions/question";
 import "./Questions.css";
 const QuestionsDetails = () => {
@@ -77,6 +82,8 @@ const QuestionsDetails = () => {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
+  const location = useLocation();
+  const url = "http://localhost:3000";
 
   const handlePostAns = (e, answerLength) => {
     e.preventDefault();
@@ -89,13 +96,31 @@ const QuestionsDetails = () => {
       } else {
         dispatch(
           postAnswer({
-            id, noOfAnswers: answerLength + 1, answerBody: Answer, userAnswered: User.result.name,
+            id, noOfAnswers: answerLength + 1, answerBody: Answer, userAnswered: User.result.name, userId: User.result._id
           })
         );
        
       }
     }
   };
+
+  const handleShare = () => {
+    copy(url + location.pathname);
+    alert("Copied url : " + url + location.pathname);
+  }
+  
+  const handleDelete = () => {
+    dispatch(deleteQuestion(id, Navigate));
+  };
+
+  const handleUpVote = () => {
+    dispatch(voteQuestion(id, "upVote", User.result._id));
+  }
+
+  const handleDownVote = () => {
+    dispatch(voteQuestion(id, "downVote", User.result._id));
+  }
+
   return(
   <div className="question-details-page">
    {
@@ -109,10 +134,10 @@ const QuestionsDetails = () => {
        <h1>{question.questionTitle}</h1>
        <div className="question-details-container-2">
        <div className="question-votes">
-        <img src={upvote} alt="" width='18'/>
-        <p>{question.upVotes - question.downVotes}</p>
+        <img src={upvote} alt="" width='18'className="votes-icon" onClick={handleUpVote} />
+        <p>{question.upVote.length - question.downVote.length}</p>
         
-        <img src={downvote} alt="" width='18'/>
+        <img src={downvote} alt="" width='18' className="votes-icon" onClick={handleDownVote} />
         </div>
         <div style={{ width: "100%" }}>
         <p className="question-body">{question.questionBody}</p>
@@ -123,11 +148,15 @@ const QuestionsDetails = () => {
           </div>    
           <div className="question-actions-user">
             <div>
-              <button type="button">Share</button>
-              <button type="button">Delete</button>
+              <button type="button" onClick={handleShare}>Share</button>
+              {User?.result?._id === question?.userId && (
+                            <button type="button" onClick={handleDelete}>
+                              Delete
+                            </button>
+                          )}
             </div>
             <div>
-            <p>asked {question.askedOn}</p>
+            <p>asked {moment(question.askedOn).fromNow()}</p>
             <Link  to={`/Users/${question.userId}`} className="user-link" style={{ color: "#0086d8" }}>
               <Avatar
               backgroundColor="orange"
@@ -150,7 +179,7 @@ const QuestionsDetails = () => {
                     <DisplayAnswer
                       key={question._id}
                       question={question}
-                     
+                      handleShare={handleShare}
                     />
                   </section>
                 )

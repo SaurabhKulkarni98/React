@@ -20,8 +20,8 @@ app.use("/questions", questionRoutes);
 app.use("/answer", answerRoutes);
 const PORT = process.env.PORT || 4000;
 
-const CONNECTION_URL = "mongodb+srv://saurabh:saurabh@cluster0.mywd3ej.mongodb.net/?retryWrites=true&w=majority"
+const DATABASE_URL = process.env.CONNECTION_URL
 
-mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true}).
+mongoose.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}).
 then(() => app.listen(PORT,() => {console.log(`server running on port ${PORT}`)}))
 .catch((err) => console.log(err.message))

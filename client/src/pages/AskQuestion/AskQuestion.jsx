@@ -22,6 +22,7 @@ const AskQuestion = () => {
               questionBody,
               questionTags,
               userPosted: User.result.name,
+              userId: User?.result?._id
     },
     navigate
     )
